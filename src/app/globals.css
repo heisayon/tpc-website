@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tpc-ink: #100b0d;
+  --tpc-charcoal: #171013;
+  --tpc-wine: #5e0f2d;
+  --tpc-plum: #721a36;
+  --tpc-red: #b71613;
+  --tpc-ember: #e5471d;
+  --tpc-gold: #f3a912;
+  --tpc-honey: #ffd166;
+  --tpc-cream: #fff8ec;
+  --tpc-paper: #f7efe2;
+  --tpc-mist: #eee3d5;
+  --tpc-slate: #514950;
+  --tpc-sage: #47685c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.8), rgba(255, 255, 255, 0.96) 22rem),
+    #fffaf2;
+  color: var(--tpc-ink);
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--tpc-red);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff8ec;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cdbd9f;
+  border: 3px solid #fff8ec;
+  border-radius: 999px;
+}
+
+@layer base {
+  a {
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+}
+
+@layer components {
+  .tpc-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .tpc-section {
+    @apply py-20 sm:py-24 lg:py-32;
+  }
+
+  .tpc-eyebrow {
+    @apply text-[0.7rem] font-extrabold uppercase tracking-[0.22em] text-tpc-red;
+  }
+
+  .tpc-heading {
+    @apply font-display text-[clamp(1.85rem,8vw,4.4rem)] font-black leading-[0.98] tracking-normal text-tpc-ink;
+  }
+
+  .tpc-subheading {
+    @apply text-base leading-7 text-tpc-slate sm:text-lg;
+  }
+
+  .tpc-card {
+    @apply rounded-[1.35rem] border border-tpc-mist bg-white shadow-sm transition duration-300;
+  }
+
+  .tpc-card-hover {
+    @apply hover:-translate-y-1 hover:border-tpc-gold/60 hover:shadow-lift;
+  }
+
+  .tpc-button {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-extrabold transition duration-300;
+  }
+
+  .tpc-button-primary {
+    @apply bg-tpc-red text-white shadow-glow hover:-translate-y-0.5 hover:bg-tpc-ember;
+  }
+
+  .tpc-button-dark {
+    @apply bg-tpc-ink text-white hover:-translate-y-0.5 hover:bg-tpc-wine;
+  }
+
+  .tpc-button-ghost {
+    @apply border border-tpc-ink/10 bg-white/75 text-tpc-ink hover:-translate-y-0.5 hover:border-tpc-red/40 hover:text-tpc-red;
+  }
+
+  .tpc-button-gold {
+    @apply bg-tpc-gold text-tpc-ink shadow-gold hover:-translate-y-0.5 hover:bg-tpc-honey;
+  }
+
+  .tpc-surface-dark {
+    @apply bg-tpc-ink text-white;
+  }
+}
+
+.font-display {
+  font-family: "Montserrat", Inter, system-ui, sans-serif;
+  font-weight: 900;
+}
+
+.brand-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.075) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.paper-grid {
+  background-image:
+    linear-gradient(rgba(16, 11, 13, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 11, 13, 0.055) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.38'/%3E%3C/svg%3E");
+}
+
+.brand-stripes {
+  background:
+    linear-gradient(135deg, rgba(243, 169, 18, 0.18) 0 12%, transparent 12% 28%, rgba(183, 22, 19, 0.16) 28% 40%, transparent 40% 100%),
+    linear-gradient(180deg, #171013, #100b0d);
+}
+
+.text-fire {
+  background: linear-gradient(110deg, #ffd166 0%, #f3a912 35%, #e5471d 67%, #b71613 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-25%, 0, 0);
+  }
+}
+
+.mock-shirt {
+  clip-path: polygon(24% 11%, 38% 4%, 45% 15%, 55% 15%, 62% 4%, 76% 11%, 92% 31%, 80% 45%, 72% 36%, 72% 95%, 28% 95%, 28% 36%, 20% 45%, 8% 31%);
+}
