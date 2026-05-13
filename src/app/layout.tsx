@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tpcconference.org"),
+  metadataBase: new URL("https://tpcglobal.live"),
   title: {
     default: "TPC | Teens Prayer Conference",
     template: "%s | Teens Prayer Conference",
@@ -20,10 +20,15 @@ export const metadata: Metadata = {
     "non-denominational youth ministry",
   ],
   authors: [{ name: "TPC" }],
+  icons: {
+    icon: [{ url: site.logo, sizes: "1024x1024", type: "image/png" }],
+    shortcut: [site.logo],
+    apple: [{ url: site.logo, sizes: "1024x1024", type: "image/png" }],
+  },
   openGraph: {
     title: "TPC | Teens Prayer Conference",
     description: site.description,
-    url: "https://tpcconference.org",
+    url: "https://tpcglobal.live",
     siteName: "Teens Prayer Conference",
     type: "website",
     images: [

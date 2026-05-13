@@ -1,5 +1,5 @@
 import { Instagram, Mail, MessageCircle } from "lucide-react";
-import { contacts, site } from "@/lib/site";
+import { contacts, emailDirectory, site } from "@/lib/site";
 
 export default function Contact() {
   return (
@@ -49,6 +49,28 @@ export default function Contact() {
             <Instagram size={16} />
             Follow updates
           </a>
+        </div>
+
+        <div className="mx-auto mt-14 max-w-5xl">
+          <div className="mb-5 text-center">
+            <p className="tpc-eyebrow">Email desk</p>
+            <h3 className="mt-3 text-3xl font-black uppercase leading-none text-tpc-ink sm:text-4xl">
+              Use the right inbox.
+            </h3>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {emailDirectory.map((item) => (
+              <a
+                key={item.email}
+                href={`mailto:${item.email}`}
+                className="rounded-[1.2rem] border border-tpc-mist bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-tpc-gold hover:shadow-lift"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-tpc-red">{item.label}</p>
+                <p className="mt-2 break-all text-base font-black text-tpc-ink">{item.email}</p>
+                <p className="mt-3 text-sm font-semibold leading-6 text-tpc-slate">{item.note}</p>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

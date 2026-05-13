@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Instagram, Mail, MessageCircle } from "lucide-react";
-import { navItems, site } from "@/lib/site";
+import { emailDirectory, navItems, site } from "@/lib/site";
 
 const actionLinks = [
   { label: "Volunteer", href: "/volunteer" },
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="tpc-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
+      <div className="tpc-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.75fr_0.75fr_1.25fr]">
         <div>
           <Link href="/" className="mb-5 flex items-center gap-3">
             <span className="relative flex h-14 w-14 shrink-0 items-center justify-center">
@@ -95,10 +95,22 @@ export default function Footer() {
             <a href={site.whatsapp} className="block text-white/60 transition hover:text-white">
               {site.whatsappDisplay}
             </a>
-            <a href={`mailto:${site.email}`} className="block break-all text-white/60 transition hover:text-white">
-              {site.email}
-            </a>
+            {emailDirectory.map((item) => (
+              <a
+                key={item.email}
+                href={`mailto:${item.email}`}
+                className="block break-all text-white/60 transition hover:text-white"
+              >
+                <span className="block text-[0.65rem] font-extrabold uppercase tracking-[0.16em] text-white/30">
+                  {item.label}
+                </span>
+                {item.email}
+              </a>
+            ))}
             <a href={site.instagram} className="block text-white/60 transition hover:text-white">
+              <span className="block text-[0.65rem] font-extrabold uppercase tracking-[0.16em] text-white/30">
+                Instagram
+              </span>
               {site.instagramHandle}
             </a>
           </div>
@@ -108,7 +120,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="tpc-container flex flex-col gap-2 py-5 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; {year} Teens Prayer Conference. All rights reserved.</p>
-          <p>Non-denominational. Youthful. Prayer-led.</p>
+          <p>Non-denominational. Young Adults.Jesus Centered.</p>
         </div>
       </div>
     </footer>

@@ -25,12 +25,21 @@ export const site = {
   description:
     "TPC is a prayer and discipleship programme for teenagers and young adults who want to know God for themselves and carry fire into everyday life.",
   location: "Nigeria",
-  email: "teensprayerconference@gmail.com",
+  email: "hello@tpcglobal.live",
+  emails: {
+    general: "hello@tpcglobal.live",
+    partnerships: "partnerships@tpcglobal.live",
+    support: "support@tpcglobal.live",
+  },
   instagram: "https://instagram.com/teensprayerconference",
   instagramHandle: "@teensprayerconference",
-  whatsappDisplay: "+234 807 981 99851",
-  whatsapp: "https://wa.me/23480798199851",
+  whatsappDisplay: "+234 807 981 9815",
+  whatsapp: "https://wa.me/2348079819815",
   logo: "/images/brand/tpc-logo.png",
+  registrationEndpoint:
+    "https://script.google.com/macros/s/AKfycbyQZGKsrlLhgVDbk7dTGoDvDJge8fC6lwzz9w1vJ4daczQ4u3_YUhVyFkwCo5oRG0FGcQ/exec",
+  configEndpoint:
+    "https://script.google.com/macros/s/AKfycbyQZGKsrlLhgVDbk7dTGoDvDJge8fC6lwzz9w1vJ4daczQ4u3_YUhVyFkwCo5oRG0FGcQ/exec?action=config",
   supportLink: "https://paystack.shop/pay/-u4sj3xlav",
   storeLink: "https://teensprayerconference1.bumpa.shop",
 };
@@ -362,6 +371,24 @@ export const contacts = [
   },
 ];
 
+export const emailDirectory = [
+  {
+    label: "General enquiries",
+    email: site.emails.general,
+    note: "Questions, invitations, and anything that needs a clear thread.",
+  },
+  {
+    label: "Partnerships",
+    email: site.emails.partnerships,
+    note: "Churches, schools, sponsors, and collaboration requests.",
+  },
+  {
+    label: "Support",
+    email: site.emails.support,
+    note: "Giving, welfare support, materials, and event sponsorship.",
+  },
+];
+
 export const faqs = [
   {
     q: "Who is TPC for?",
@@ -369,7 +396,7 @@ export const faqs = [
   },
   {
     q: "What registrations are open?",
-    a: "Creator's Conf is open now. TPC 2026 registration has not commenced yet.",
+    a: "The site follows the live registration sheet. When the team marks a programme open, the form opens for that programme.",
   },
   {
     q: "What about Secondary School Outreach?",
