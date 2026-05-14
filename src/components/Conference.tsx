@@ -14,12 +14,12 @@ export default function Conference({ compact = false }: { compact?: boolean }) {
           <div>
             <p className="tpc-subheading">
               March and April are completed. <br />
-              Creator&apos;s Conf is open for registration.
+              Registration status is controlled from the live sheet.
               School outreach is handled through direct enquiry.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/register" className="tpc-button tpc-button-primary">
-                Register
+                Check registration
                 <ArrowRight size={16} />
               </Link>
               <Link href="/support" className="tpc-button tpc-button-ghost">

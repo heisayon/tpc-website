@@ -140,8 +140,8 @@ export const schedule: ScheduleItem[] = [
     slug: "june",
     month: "JUN",
     title: "Creator's Conf",
-    label: "Register now",
-    status: "open",
+    label: "Checking status",
+    status: "pending",
     registerHref: "/register",
     description:
       "For young people who want skill without losing fire. Create well. Think clearly. Build with God in view.",
@@ -176,7 +176,7 @@ export const registrationEvents = [
     slug: "june",
     title: "Creator's Conf",
     month: "June",
-    status: "Open now",
+    status: "Checking status",
     href: "/register",
   },
   {

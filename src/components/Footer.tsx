@@ -120,7 +120,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="tpc-container flex flex-col gap-2 py-5 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; {year} Teens Prayer Conference. All rights reserved.</p>
-          <p>Non-denominational. Young Adults.Jesus Centered.</p>
+          <p>Non-denominational. Young Adults. Jesus Centered.</p>
         </div>
       </div>
     </footer>

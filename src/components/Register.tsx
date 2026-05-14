@@ -188,39 +188,61 @@ export default function Register({ defaultEventSlug = "june" }: RegisterProps) {
   const [submitError, setSubmitError] = useState("");
   const [registrationNotice, setRegistrationNotice] = useState<RegistrationNotice | null>(null);
   const [runtimeEvents, setRuntimeEvents] = useState<Record<string, RuntimeEventConfig>>({});
+  const [configStatus, setConfigStatus] = useState<"loading" | "ready" | "failed">(
+    configEndpoint ? "loading" : "failed"
+  );
   const [skillInterest, setSkillInterest] = useState("");
   const [skillError, setSkillError] = useState("");
   const initialEvent = registrationEvents.find((event) => event.slug === defaultEventSlug) ?? registrationEvents[0];
   const [selectedEventSlug, setSelectedEventSlug] = useState(initialEvent.slug);
   const selectedEvent = registrationEvents.find((event) => event.slug === selectedEventSlug) ?? registrationEvents[0];
   const runtimeEvent = runtimeEvents[selectedEvent.slug] ?? {};
-  const selectedEventOpen = runtimeEvent.open ?? selectedEvent.slug === "june";
-  const selectedEventStatus = cleanOpenStatus(runtimeEvent.status ?? selectedEvent.status, selectedEventOpen);
+  const selectedEventOpen = configStatus === "ready" && runtimeEvent.open === true;
+  const selectedEventStatus =
+    configStatus === "loading"
+      ? "Checking status"
+      : configStatus === "failed"
+        ? "Status unavailable"
+        : cleanOpenStatus(runtimeEvent.status ?? selectedEvent.status, selectedEventOpen);
   const selectedEventDetails = [runtimeEvent.date, runtimeEvent.time, runtimeEvent.venue].filter(Boolean).join(" | ");
   const isCreatorsConf = selectedEvent.slug === "june";
   const canRegister = selectedEventOpen;
   const eventOptions = registrationEvents.map((event) => ({
     value: event.slug,
     label: event.title,
-    meta: `${event.month} / ${cleanOpenStatus(runtimeEvents[event.slug]?.status ?? event.status, runtimeEvents[event.slug]?.open ?? event.slug === "june")}`,
+    meta: `${event.month} / ${
+      configStatus === "loading"
+        ? "Checking status"
+        : configStatus === "failed"
+          ? "Status unavailable"
+          : cleanOpenStatus(runtimeEvents[event.slug]?.status ?? event.status, runtimeEvents[event.slug]?.open === true)
+    }`,
   }));
   const skillOptions = creatorSkills.map((skill) => ({ value: skill, label: skill }));
 
   useEffect(() => {
-    if (!configEndpoint) return;
+    if (!configEndpoint) {
+      setConfigStatus("failed");
+      return;
+    }
 
     let active = true;
+    setConfigStatus("loading");
 
     fetch(configEndpoint, { cache: "no-store" })
       .then((response) => (response.ok ? response.json() : null))
       .then((config: { events?: Record<string, RuntimeEventConfig> } | null) => {
         if (active && config?.events) {
           setRuntimeEvents(config.events);
+          setConfigStatus("ready");
+        } else if (active) {
+          setConfigStatus("failed");
         }
       })
       .catch(() => {
         if (active) {
           setRuntimeEvents({});
+          setConfigStatus("failed");
         }
       });
 
@@ -443,19 +465,25 @@ export default function Register({ defaultEventSlug = "june" }: RegisterProps) {
               ) : (
                 <div className="sm:col-span-2 rounded-[1.4rem] border border-tpc-gold/50 bg-tpc-gold/10 p-5 sm:p-6">
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-tpc-gold/30 text-tpc-wine">
-                    <Clock3 size={22} />
+                    {configStatus === "loading" ? <Loader2 size={22} className="animate-spin" /> : <Clock3 size={22} />}
                   </div>
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-tpc-red">
                     {selectedEventStatus}
                   </p>
                   <h4 className="mt-3 text-2xl font-black uppercase leading-tight text-tpc-ink">
-                    {selectedEvent.title} registration is not open.
+                    {configStatus === "loading"
+                      ? "Checking the live registration sheet."
+                      : configStatus === "failed"
+                        ? "We could not confirm registration status."
+                        : `${selectedEvent.title} registration is not open.`}
                   </h4>
                   <p className="mt-3 text-sm font-semibold leading-7 text-tpc-slate">
-                    {runtimeEvent.message ??
-                      (isCreatorsConf
-                        ? "The team has closed this form for now. Please message us if you have a direct enquiry."
-                        : "We are keeping this option visible so people know it is coming. The form will open when the team announces TPC 2026 registration.")}
+                    {configStatus === "loading"
+                      ? "One moment. We are checking the latest open or closed status before showing any form."
+                      : configStatus === "failed"
+                        ? "Please refresh this page, or message the team if you need help registering."
+                        : runtimeEvent.message ??
+                          "The team has not opened this form from the registration sheet yet."}
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <a href="/conference" className="tpc-button tpc-button-dark">
@@ -485,9 +513,6 @@ export default function Register({ defaultEventSlug = "june" }: RegisterProps) {
                       </>
                     )}
                   </button>
-                  <a href={site.whatsapp} className="tpc-button tpc-button-ghost" target="_blank" rel="noopener noreferrer">
-                    Ask on WhatsApp
-                  </a>
                 </div>
                 {submitting ? (
                   <div className="mt-4 flex items-center gap-3 rounded-[1.2rem] border border-tpc-gold/50 bg-tpc-gold/10 px-4 py-3 text-sm font-bold text-tpc-ink">

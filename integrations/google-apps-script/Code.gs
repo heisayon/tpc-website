@@ -52,10 +52,10 @@ const DEFAULT_EVENTS = [
     "june",
     "Creator's Conf",
     "June",
-    "TRUE",
-    "Open now",
-    "Register now",
-    "Creator's Conf is open now.",
+    "FALSE",
+    "Registration not open",
+    "Registration not open",
+    "Registration is not open for this programme yet.",
     "",
     "",
     "",
@@ -423,38 +423,33 @@ function buildReceiptHtml_(record) {
   const venueRow = record.venue ? ticketDetailRow_("Venue", safeVenue) : "";
   const calendarUrl = buildCalendarUrl_(record);
   const calendarButton = calendarUrl
-    ? '<div style="margin:26px 0 0;text-align:center;"><a href="' +
+    ? '<div style="margin:28px 0 0;text-align:center;"><a href="' +
       calendarUrl +
       '" style="display:inline-block;border-radius:999px;background:#b71613;color:#ffffff;text-align:center;text-decoration:none;font-size:15px;font-weight:900;padding:15px 24px;">Add to Google Calendar</a></div>'
     : "";
 
   return (
-    '<div style="margin:0;padding:40px 18px;background:#fff8ec;font-family:Montserrat,Arial,sans-serif;color:#100b0d;">' +
-    '<div style="max-width:720px;margin:0 auto;">' +
-    '<div style="text-align:center;margin:0 0 20px;">' +
-    '<div style="display:inline-block;border-radius:16px;background:#b71613;color:#ffffff;font-size:17px;font-weight:900;letter-spacing:0.6px;padding:10px 15px;">TPC</div>' +
-    '<p style="margin:12px 0 0;font-size:12px;font-weight:900;letter-spacing:2.2px;text-transform:uppercase;color:#5e0f2d;">Teens Prayer Conference</p>' +
-    '</div>' +
-    '<div style="overflow:hidden;border:1px solid #eadcc8;border-radius:28px;background:#ffffff;box-shadow:0 24px 70px rgba(16,11,13,0.14);">' +
-    ticketPerforation_("#fff8ec", "#b71613") +
+    '<div style="margin:0;padding:36px 16px;background:#28231a;font-family:Montserrat,Arial,sans-serif;color:#ffffff;">' +
+    '<div style="max-width:620px;margin:0 auto;">' +
+    '<div style="overflow:hidden;border:1px solid rgba(255,209,102,0.16);border-radius:0;background:#171013;box-shadow:0 24px 70px rgba(0,0,0,0.34);">' +
+    ticketPerforation_("#28231a", "#b71613") +
     '<div style="padding:34px 34px 32px;background:#b71613;color:#ffffff;">' +
-    '<p style="margin:0 0 14px;font-size:11px;font-weight:900;letter-spacing:2.3px;text-transform:uppercase;color:#ffd166;">Registration confirmed</p>' +
-    '<h1 style="margin:0;font-size:44px;line-height:0.96;font-weight:900;text-transform:uppercase;color:#ffffff;">Registration Confirmed</h1>' +
-    '<p style="margin:18px 0 0;max-width:590px;font-size:17px;line-height:1.75;color:rgba(255,255,255,0.86);">Hello <strong style="color:#ffffff;">' +
+    '<p style="margin:0 0 14px;font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#ffd166;">Teens Prayer Conference</p>' +
+    '<h1 style="margin:0;font-size:42px;line-height:1;font-weight:900;text-transform:uppercase;color:#ffffff;">Registration Confirmed</h1>' +
+    '</div>' +
+    '<div style="padding:38px 34px 32px;background:#171013;">' +
+    '<p style="margin:0 0 28px;font-size:20px;line-height:1.75;color:#f6efe4;">Hello <strong style="color:#ffffff;">' +
     safeName +
     '</strong>, your registration for <strong style="color:#ffffff;">' +
     safeEvent +
     '</strong> has been received. Keep this ticket number close.</p>' +
-    '</div>' +
-    '<div style="padding:34px;background:#ffffff;">' +
-    '<div style="margin:0 0 26px;padding:28px;border:2px dashed #b71613;border-radius:22px;background:#fff8ec;text-align:center;">' +
-    '<p style="margin:0 0 10px;font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#5e0f2d;">Ticket Number</p>' +
-    '<p style="margin:0;font-size:40px;line-height:1;font-weight:900;letter-spacing:1px;color:#100b0d;">' +
+    '<div style="margin:0 0 30px;padding:28px 22px;border:2px dashed #f17664;border-radius:20px;background:#241e18;text-align:center;">' +
+    '<p style="margin:0 0 12px;font-size:12px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:#ffd6d0;">Ticket Number</p>' +
+    '<p style="margin:0;font-size:42px;line-height:1.14;font-weight:900;letter-spacing:2px;color:#ffffff;">' +
     safeCode +
     '</p>' +
-    '<p style="margin:14px 0 0;font-size:13px;line-height:1.6;color:#514950;font-weight:700;">Show this email if the registration team needs to confirm your details.</p>' +
     '</div>' +
-    '<table role="presentation" style="width:100%;border-collapse:separate;border-spacing:0 12px;margin:0;font-size:15px;">' +
+    '<table role="presentation" style="width:100%;border-collapse:collapse;margin:0;font-size:16px;">' +
     ticketDetailRow_("Name", safeName) +
     ticketDetailRow_("Programme", safeEvent) +
     dateRow +
@@ -464,13 +459,14 @@ function buildReceiptHtml_(record) {
     ticketDetailRow_("Phone", safePhone) +
     '</table>' +
     calendarButton +
-    '<p style="margin:26px 0 0;font-size:14px;line-height:1.75;color:#514950;text-align:center;">Your name is on the registration list. If you need help, reply to this email and the team can find you with your ticket number.</p>' +
+    '<p style="margin:30px 0 0;font-size:16px;line-height:1.75;color:#e7ded5;">Keep this email. The team can find your registration with your ticket number.</p>' +
     '</div>' +
-    '<div style="padding:26px 34px;background:#100b0d;color:#ffffff;text-align:center;">' +
-    '<p style="margin:0 0 8px;font-size:14px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#ffd166;">Birthing: A Call to Intimacy</p>' +
-    '<p style="margin:0;font-size:13px;line-height:1.75;color:rgba(255,255,255,0.72);">TPC 2026 | tpcglobal.live | @teensprayerconference</p>' +
+    '<div style="padding:30px 34px;background:#100b0d;border-top:1px solid rgba(255,209,102,0.14);color:#ffffff;text-align:center;">' +
+    '<p style="margin:0 0 10px;font-size:13px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase;color:#ffd166;">Birthing: A Call to Intimacy</p>' +
+    '<p style="margin:0 auto;max-width:430px;font-size:14px;line-height:1.7;color:rgba(255,255,255,0.72);">Questions or changes? Reply to this email and the TPC team will help.</p>' +
+    '<p style="margin:16px 0 0;font-size:12px;line-height:1.8;color:rgba(255,255,255,0.46);">tpcglobal.live &nbsp;|&nbsp; @teensprayerconference</p>' +
     '</div>' +
-    ticketPerforation_("#fff8ec", "#100b0d") +
+    ticketPerforation_("#28231a", "#100b0d") +
     '</div>' +
     '</div>' +
     '</div>'
@@ -549,10 +545,10 @@ function ticketPerforation_(holeColor, stripColor) {
 function ticketDetailRow_(label, value) {
   return (
     '<tr>' +
-    '<td style="width:42%;border-radius:16px 0 0 16px;background:#fff8ec;border:1px solid #eadcc8;border-right:0;padding:15px 16px;color:#5e0f2d;font-size:12px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;">' +
+    '<td style="width:42%;border-bottom:1px solid rgba(255,209,102,0.14);padding:17px 0;color:#e6d5df;font-size:16px;font-weight:800;">' +
     label +
     '</td>' +
-    '<td style="border-radius:0 16px 16px 0;background:#fff8ec;border:1px solid #eadcc8;border-left:0;padding:15px 16px;text-align:right;color:#100b0d;font-weight:900;">' +
+    '<td style="border-bottom:1px solid rgba(255,209,102,0.14);padding:17px 0;text-align:right;color:#ffffff;font-size:16px;font-weight:900;">' +
     value +
     '</td>' +
     '</tr>'

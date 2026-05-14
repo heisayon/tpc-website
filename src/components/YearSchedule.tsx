@@ -36,23 +36,34 @@ function cleanLabel(label: string, status: ScheduleItem["status"]) {
 
 export default function YearSchedule({ compact = false }: { compact?: boolean }) {
   const [runtimeEvents, setRuntimeEvents] = useState<Record<string, RuntimeEventConfig>>({});
+  const [configStatus, setConfigStatus] = useState<"loading" | "ready" | "failed">(
+    configEndpoint ? "loading" : "failed"
+  );
   const items = compact ? schedule.slice(2) : schedule;
 
   useEffect(() => {
-    if (!configEndpoint) return;
+    if (!configEndpoint) {
+      setConfigStatus("failed");
+      return;
+    }
 
     let active = true;
+    setConfigStatus("loading");
 
     fetch(configEndpoint, { cache: "no-store" })
       .then((response) => (response.ok ? response.json() : null))
       .then((config: { events?: Record<string, RuntimeEventConfig> } | null) => {
         if (active && config?.events) {
           setRuntimeEvents(config.events);
+          setConfigStatus("ready");
+        } else if (active) {
+          setConfigStatus("failed");
         }
       })
       .catch(() => {
         if (active) {
           setRuntimeEvents({});
+          setConfigStatus("failed");
         }
       });
 
@@ -66,15 +77,21 @@ export default function YearSchedule({ compact = false }: { compact?: boolean })
         {items.map((item) => {
           const runtime = runtimeEvents[item.slug];
           const effectiveStatus: ScheduleItem["status"] =
-            runtime?.open === false && item.status === "open"
+            runtime?.open === true
+              ? "open"
+              : runtime?.open === false && item.registerHref
               ? "closed"
-              : runtime?.open === true && item.status === "pending"
-                ? "open"
-                : item.status;
-          const label = cleanLabel(runtime?.label ?? (effectiveStatus === "closed" ? "Closed" : item.label), effectiveStatus);
+              : item.status;
+          const label =
+            item.registerHref && configStatus === "loading"
+              ? "Checking status"
+              : item.registerHref && configStatus === "failed"
+                ? "Status unavailable"
+                : cleanLabel(runtime?.label ?? (effectiveStatus === "closed" ? "Closed" : item.label), effectiveStatus);
           const description = runtime?.message ?? item.description;
           const details = [runtime?.date, runtime?.time, runtime?.venue].filter(Boolean).join(" | ");
           const unavailable = effectiveStatus === "past" || effectiveStatus === "closed";
+          const completed = effectiveStatus === "past";
           return (
             <article
               key={item.slug}
@@ -94,7 +111,7 @@ export default function YearSchedule({ compact = false }: { compact?: boolean })
                       {label}
                     </span>
                   </div>
-                  <h3 className={`text-2xl font-black uppercase leading-tight ${unavailable ? "line-through decoration-2" : ""}`}>
+                  <h3 className={`text-2xl font-black uppercase leading-tight ${completed ? "line-through decoration-2" : ""}`}>
                     {item.title}
                   </h3>
                   <p className="mt-2 max-w-2xl text-sm font-semibold leading-6">{description}</p>

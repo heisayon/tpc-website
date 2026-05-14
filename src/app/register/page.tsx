@@ -8,9 +8,7 @@ export default function RegisterPage() {
       <PageHero
         eyebrow="Register"
         title="One form. Choose the programme."
-        body="Creator’s Conf is open now.
-TPC 2026 registration has not started yet.
-For school outreach, volunteering, and group enquiries, please message the team on WhatsApp."
+        body="Choose a programme from the form. The site checks the live registration sheet before it opens any registration."
         primary={{ label: "Fill the form", href: "#register" }}
         secondary={{ label: "Ask a question", href: "/contact" }}
       />

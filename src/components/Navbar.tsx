@@ -99,8 +99,14 @@ export default function Navbar() {
 
       {menuOpen ? (
         <div className="border-t border-tpc-mist bg-tpc-cream px-5 pb-6 pt-3 shadow-2xl lg:hidden">
+          <Link
+            href="/register"
+            className="mb-3 flex min-h-13 items-center justify-center rounded-2xl bg-tpc-red px-5 py-4 text-base font-black text-white shadow-glow"
+          >
+            Register
+          </Link>
           <div className="grid gap-1">
-            {navItems.map((item) => (
+            {navItems.filter((item) => item.href !== "/register").map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
