@@ -4,3 +4,7 @@ dev-server.log
 *.log
 npm-debug.log*
 .env*.local
+
+# Generated video exports stay local.
+exports/
+public/videos/

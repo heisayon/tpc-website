@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "video:preview": "remotion preview src/remotion/index.ts",
-    "video:render": "remotion render src/remotion/index.ts TPCRegistrationExplainer public/videos/tpc-registration-guide.mp4 --overwrite"
+    "video:preview": "remotion preview src/remotion/index.ts --public-dir=remotion-public",
+    "video:render": "remotion render src/remotion/index.ts TPCWebsiteLaunch exports/videos/tpc-website-launch.mp4 --overwrite --public-dir=remotion-public"
   },
   "dependencies": {
     "framer-motion": "^11.3.19",
